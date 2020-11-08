@@ -1,7 +1,9 @@
+// Define type of State
 export type State = {
-  title: string;
+  mapCenter: { lat: number; lon: number };
 };
 
+// Initialize State
 export const state: State = {
-  title: "test",
+  mapCenter: { lat: 40.77884287, lon: -102.084164 },
 };
