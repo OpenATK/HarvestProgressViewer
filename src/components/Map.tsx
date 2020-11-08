@@ -1,7 +1,7 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import "./app.css";
 import {
   MapContainer,
   TileLayer,
@@ -21,35 +21,18 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-//const styles = (theme) => ();
-
 const MapComponent = () => {
   // Example
   const lat = 40.77884287;
   const lng = -102.084164;
 
   return (
-    <div
-      className="map"
-      style={{
-        position: "relative",
-        display: "flex",
-        width: "100%",
-        height: "1000px",
-      }}
-    >
-      <MapContainer
-        center={[lat, lng]}
-        zoom={15}
-        maxZoom={18}
-        style={{ height: "100%", width: "100%", position: "relative" }}
-      >
-        <TileLayer
-          attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-        />
-      </MapContainer>
-    </div>
+    <MapContainer center={[lat, lng]} zoom={15} maxZoom={18}>
+      <TileLayer
+        attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+      />
+    </MapContainer>
   );
 };
 
