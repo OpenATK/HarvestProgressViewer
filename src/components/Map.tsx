@@ -10,7 +10,7 @@ import {
   Popup,
   CircleMarker,
   Tooltip,
-  Polyline,
+  Polygon,
   useMap,
 } from "react-leaflet";
 import icon from "leaflet/dist/images/marker-icon.png";
@@ -22,6 +22,7 @@ let DefaultIcon = L.icon({
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
+const purpleOptions = { color: "purple" };
 
 function ChangeView({ center }) {
   const map = useMap();
@@ -33,6 +34,10 @@ const MapComponent = () => {
   const { state } = useOvermind();
   const position: L.LatLngTuple = [state.mapCenter.lat, state.mapCenter.lon];
 
+  const fieldPolygon = state.field.map(function (pos, idx): L.LatLngTuple {
+    return [pos.lat, pos.lon];
+  });
+
   return (
     <MapContainer center={position} zoom={15}>
       <ChangeView center={position} />
@@ -40,11 +45,7 @@ const MapComponent = () => {
         attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
         url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
       />
-      <Marker position={[state.mapCenter.lat, state.mapCenter.lon]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker>
+      <Polygon pathOptions={purpleOptions} positions={fieldPolygon} />
     </MapContainer>
   );
 };

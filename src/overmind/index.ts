@@ -1,12 +1,12 @@
 import { createHook } from "overmind-react";
 import { state } from "./state";
-//import * as actions from './actions';
+import * as actions from "./actions";
 //import * as effects from './effects';
 import { IConfig } from "overmind";
 
 export const config = {
   state,
-  //  actions,
+  actions,
   //  effects,
 };
 
