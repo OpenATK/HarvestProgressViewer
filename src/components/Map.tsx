@@ -33,10 +33,7 @@ function ChangeView({ center }) {
 const MapComponent = () => {
   const { state } = useOvermind();
   const position: L.LatLngTuple = [state.mapCenter.lat, state.mapCenter.lon];
-
-  const fieldPolygon = state.field.map(function (pos, idx): L.LatLngTuple {
-    return [pos.lat, pos.lon];
-  });
+  const fieldPolygon: [number, number][] = state.field;
 
   return (
     <MapContainer center={position} zoom={15}>

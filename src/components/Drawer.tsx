@@ -40,7 +40,7 @@ const DrawerComponent = () => {
 
       <Divider />
       <List>
-        {["Field A", "Field B", "Field C"].map((text, index) => (
+        {state.fields.map((text, index) => (
           <ListItem
             button
             key={text}
