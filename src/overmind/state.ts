@@ -8,6 +8,7 @@ export type State = {
   loaded: boolean;
   mapCenter: { lat: number; lon: number };
   field: Array<any>;
+  progressPolygon: Array<any>;
   fields: Array<string>;
   selectedField: null | number;
 };
@@ -35,6 +36,16 @@ export const state: State = {
       return this.oada[this.connection].bookmarks.agrinovus["field-index"][
         selectedFieldName
       ].field.polygon;
+    } else {
+      return [];
+    }
+  },
+  get progressPolygon() {
+    if (this.connection && this.loaded && this.selectedField !== null) {
+      const selectedFieldName = this.fields[this.selectedField];
+      return this.oada[this.connection].bookmarks.agrinovus["field-index"][
+        selectedFieldName
+      ].progress.polygon;
     } else {
       return [];
     }

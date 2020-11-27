@@ -22,7 +22,6 @@ let DefaultIcon = L.icon({
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
-const purpleOptions = { color: "purple" };
 
 function ChangeView({ center }) {
   const map = useMap();
@@ -33,18 +32,21 @@ function ChangeView({ center }) {
 const MapComponent = () => {
   const { state } = useOvermind();
   const position: L.LatLngTuple = [state.mapCenter.lat, state.mapCenter.lon];
-  const fieldPolygon: [number, number][] = state.field;
+    const fieldPolygon: [number, number][] = state.field;
+    const progressPolygon: [number, number][] = state.progressPolygon;
 
-  return (
-    <MapContainer center={position} zoom={15}>
-      <ChangeView center={position} />
-      <TileLayer
-        attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
-        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-      />
-      <Polygon pathOptions={purpleOptions} positions={fieldPolygon} />
-    </MapContainer>
-  );
+    return (
+        <MapContainer center={position} zoom={15}>
+            {/* <ChangeView center={position} /> */}
+            <TileLayer
+                attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            />
+            <Polygon pathOptions={{ color: "yellow" }} positions={fieldPolygon} />
+            <Polygon pathOptions={{ color: "yellow", fillOpacity: 1 }} positions={progressPolygon} />
+
+        </MapContainer>
+    );
 };
 
 export default MapComponent;

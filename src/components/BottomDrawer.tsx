@@ -53,8 +53,8 @@ function LinearProgressWithLabel(props: LinearProgressProps & { value: number })
         <BorderLinearProgress variant="determinate" {...props} />
       </Box>
       <Box minWidth={35}>
-        <Typography 
-          variant="body2" 
+        <Typography
+          variant="body2"
           color="textPrimary">
             {`${Math.round(props.value,)}%`}
         </Typography>
@@ -109,7 +109,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'flex-end',
     },
     drawerText: {
-      
+
     },
     progressBar: {
       width: '70%',
@@ -181,26 +181,26 @@ const BottomDrawerComponent = () => {
           variant='h6'
           color="textSecondary"
           gutterBottom>
-          Field X
+          {state.selectedField !== null? state.fields[state.selectedField] : "(Field not selected)"}
         </Typography>
         <Typography
           color="textSecondary">
-          Harvest Progress 
+          Harvest Progress
         </Typography>
         <div className={classes.progressBar}>
           <LinearProgressWithLabel value={progress} />
         </div>
         <Typography
           color="textSecondary">
-          Harvest Time: xxx hr 
+          Harvest Time: xxx hr
         </Typography>
         <Typography
           color="textSecondary">
-          Total Area: xxx ac   
+          Total Area: xxx ac
         </Typography>
         <Typography
           color="textSecondary">
-          Harvested Area: xxx ac 
+          Harvested Area: xxx ac
         </Typography>
         </MuiThemeProvider>
       </Drawer>
