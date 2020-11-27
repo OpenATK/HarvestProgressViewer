@@ -25,7 +25,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 function ChangeView({ center }) {
   const map = useMap();
-  map.setView(center, 15);
+  map.setView(center, 14);
   return null;
 }
 
@@ -36,7 +36,7 @@ const MapComponent = () => {
     const progressPolygon: [number, number][] = state.progressPolygon;
 
     return (
-        <MapContainer center={position} zoom={15}>
+        <MapContainer center={position} zoom={14}>
             {/* <ChangeView center={position} /> */}
             <TileLayer
                 attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"

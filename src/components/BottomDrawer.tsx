@@ -10,19 +10,13 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import DashboardIcon from "@material-ui/icons/Dashboard";
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import LinearProgress, { LinearProgressProps } from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Box';
 
-const drawerHeight = 240;
+const drawerHeight = 280;
 
 const THEME = createMuiTheme({
     palette: {
@@ -33,7 +27,7 @@ const THEME = createMuiTheme({
 const BorderLinearProgress = withStyles((theme: Theme) =>
   createStyles({
     root: {
-      height: 10,
+      height: 25,
       borderRadius: 5,
     },
     colorPrimary: {
@@ -76,6 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
       top: 'auto',
       bottom: 0,
       alignItems: 'center',
+      zIndex: 3,
     },
     appBarShift: {
       height: '240 px',
@@ -84,6 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
+      zIndex: 3,
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -98,7 +94,6 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       height: drawerHeight,
       background: '#3f51b5',
-      color: theme.palette.text.secondary,
       alignItems: 'center',
     },
     drawerHeader: {
@@ -112,7 +107,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
     },
     progressBar: {
-      width: '70%',
+      width: '75%',
+      padding: theme.spacing(2,0,4),
     }
   }),
 );
@@ -180,6 +176,7 @@ const BottomDrawerComponent = () => {
         <Typography
           variant='h6'
           color="textSecondary"
+          style={{ fontWeight: 600 }}
           gutterBottom>
           {state.selectedField !== null? state.fields[state.selectedField] : "(Field not selected)"}
         </Typography>

@@ -2,3 +2,24 @@
   width: 100%;
   height: 100vh;
 }
+@media screen and (max-width: 600px){
+  .leaflet-left{
+    top: 56px;
+  }
+}
+@media screen and (min-width: 600px){
+  .leaflet-left{
+    top: 64px;
+  }
+}
+@media screen and (max-width: 600px){
+  .leaflet-right{
+    bottom: 56px;
+  }
+}
+@media screen and (min-width: 600px){
+  .leaflet-right{
+    bottom: 64px;
+  }
+}
+

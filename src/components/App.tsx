@@ -7,7 +7,7 @@ import LeftDrawerComponent from "./LeftDrawer";
 import BottomDrawerComponent from "./BottomDrawer"
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,13 +16,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
       marginLeft: -drawerWidth,
+      zIndex: 1,
     },
-    toolbar: theme.mixins.toolbar,
   })
 );
 
@@ -35,8 +31,7 @@ const App = () => {
       <CssBaseline />
       <LeftDrawerComponent />
       <main className={classes.content}>
-        <div className={classes.toolbar} />
-          <MapComponent />
+        <MapComponent />
       </main>
       <BottomDrawerComponent />
     </div>

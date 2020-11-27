@@ -24,8 +24,9 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import Box from "@material-ui/core/Box";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const THEME = createMuiTheme({
   palette: {
@@ -42,12 +43,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexGrow: 1,
       justifyContent: "space-between",
+      zIndex: 2,
     },
     menuButton: {
       marginRight: theme.spacing(2),
-    },
-    closeButton: {
-      left: 12,
     },
     hide: {
       display: "none",
@@ -56,19 +55,22 @@ const useStyles = makeStyles((theme: Theme) =>
       width: drawerWidth,
       flexShrink: 0,
     },
-    drawerPaper: {
+    drawerPaperBig: {
       width: drawerWidth,
-      background: "#3f51b5",
-      color: theme.palette.text.secondary,
-      position: "absolute",
+      background: '#3f51b5',
+      zIndex: 2,
+      top: 64,
+    },
+    drawerPaperSmall: {
+      width: drawerWidth,
+      background: '#3f51b5',
+      zIndex: 2,
+      top: 56,
     },
     drawerHeader: {
       display: "flex",
       alignItems: "center",
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
     },
-    toolbar: theme.mixins.toolbar,
   })
 );
 
@@ -77,6 +79,7 @@ const LeftDrawerComponent = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const { state, actions } = useOvermind();
+  const bigScreen = useMediaQuery('(min-width:600px)');
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -96,14 +99,24 @@ const LeftDrawerComponent = () => {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            className={classes.menuButton}
+            className={clsx(classes.menuButton, open && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
+          <IconButton 
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerClose}
+            edge='start'
+            className={clsx(classes.menuButton, 
+                            !open && classes.hide)}
+            >
+            <ChevronLeftIcon />
+          </IconButton>
           <Typography variant="h4" component="h1">
-            ADAP
+            ODAP
           </Typography>
-          <Box style={{ width: "5%" }}></Box>
+          <Box style={{ width: "6%" }}></Box>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -112,17 +125,11 @@ const LeftDrawerComponent = () => {
         anchor="left"
         open={open}
         classes={{
-          paper: classes.drawerPaper,
+          paper: clsx(bigScreen && classes.drawerPaperBig, 
+                      !bigScreen && classes.drawerPaperSmall),
         }}
       >
-        <div className={classes.drawerHeader}>
-          <IconButton
-            onClick={handleDrawerClose}
-            className={classes.closeButton}
-          >
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
+
         <MuiThemeProvider theme={THEME}>
           <Typography variant="h4" align="center" color="textSecondary">
             Fields
