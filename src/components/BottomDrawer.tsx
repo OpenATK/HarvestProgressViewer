@@ -15,6 +15,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import LinearProgress, { LinearProgressProps } from '@material-ui/core/LinearProgress';
 import Box from '@material-ui/core/Box';
+import { selectField } from '../overmind/actions';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 const drawerHeight = 280;
 
@@ -73,16 +75,25 @@ const useStyles = makeStyles((theme: Theme) =>
       zIndex: 3,
     },
     appBarShift: {
-      height: '240 px',
-      marginLeft: drawerHeight,
       transition: theme.transitions.create(['margin', 'height'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
       zIndex: 3,
     },
+    appBarProgress: {
+      transition: theme.transitions.create(['margin', 'height'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      zIndex: 3,
+      alignItems: 'center',
+    },
     menuButton: {
       marginRight: theme.spacing(2),
+    },
+    bottomBarButton:{
+      alignItems: 'center',
     },
     hide: {
       display: 'none',
@@ -95,16 +106,12 @@ const useStyles = makeStyles((theme: Theme) =>
       height: drawerHeight,
       background: '#3f51b5',
       alignItems: 'center',
+      width: '100%',
     },
-    drawerHeader: {
-      display: 'flex',
+    drawerEmptyField:{
+      height: drawerHeight - 160,
+      background: '#3f51b5',
       alignItems: 'center',
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-      justifyContent: 'flex-end',
-    },
-    drawerText: {
-
     },
     progressBar: {
       width: '75%',
@@ -113,12 +120,23 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+function showProgress(state){
+  
+  if(state.selectedField === null){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
 const BottomDrawerComponent = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const { state, actions } = useOvermind();
   const [progress, setProgress] = React.useState(10);
+  const showProgressBar = showProgress(state);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -140,10 +158,11 @@ const BottomDrawerComponent = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
+      <MuiThemeProvider theme={THEME}>
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: open, [classes.appBarProgress]: showProgressBar
         })}
       >
         <Toolbar>
@@ -151,11 +170,15 @@ const BottomDrawerComponent = () => {
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.bottomBarButton, open  && classes.hide)}
           >
             <ExpandLessIcon />
           </IconButton>
         </Toolbar>
+        <div className={clsx(!showProgressBar && classes.hide, classes.progressBar)}>
+          <LinearProgressWithLabel 
+            value={progress} />
+        </div>
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -163,11 +186,10 @@ const BottomDrawerComponent = () => {
         anchor='bottom'
         open={open}
         classes={{
-          paper: classes.drawerPaper,
+          paper: clsx(classes.drawerPaper, !showProgressBar && classes.drawerEmptyField),
         }}
       >
-        <MuiThemeProvider theme={THEME}>
-        <div className={classes.drawerHeader}>
+        <div className={classes.bottomBarButton}>
           <IconButton onClick={handleDrawerClose}>
             <ExpandMoreIcon />
           </IconButton>
@@ -178,29 +200,33 @@ const BottomDrawerComponent = () => {
           color="textSecondary"
           style={{ fontWeight: 600 }}
           gutterBottom>
-          {state.selectedField !== null? state.fields[state.selectedField] : "(Field not selected)"}
+          {state.selectedField !== null? state.fields[state.selectedField] : "(No field has been selected)"}
         </Typography>
-        <Typography
-          color="textSecondary">
-          Harvest Progress
-        </Typography>
-        <div className={classes.progressBar}>
+        <div className={clsx(!showProgressBar && classes.hide)}>
+          <Typography
+            color="textSecondary">
+            Harvest Progress 
+          </Typography>
+        </div>
+        <div className={clsx(!showProgressBar && classes.hide, classes.progressBar)}>
           <LinearProgressWithLabel value={progress} />
         </div>
-        <Typography
-          color="textSecondary">
-          Harvest Time: xxx hr
-        </Typography>
-        <Typography
-          color="textSecondary">
-          Total Area: xxx ac
-        </Typography>
-        <Typography
-          color="textSecondary">
-          Harvested Area: xxx ac
-        </Typography>
-        </MuiThemeProvider>
-      </Drawer>
+        <div className={clsx(!showProgressBar && classes.hide)}>
+          <Typography
+            color="textSecondary">
+            Harvest Time: xxx hr
+          </Typography>
+          <Typography
+            color="textSecondary">
+            Total Area: xxx ac
+          </Typography>
+          <Typography
+            color="textSecondary">
+            Harvested Area: xxx ac
+          </Typography>
+        </div>
+        </Drawer>
+      </MuiThemeProvider>
     </div>
   );
 }

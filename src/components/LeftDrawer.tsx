@@ -25,6 +25,9 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import Box from "@material-ui/core/Box";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import Collapse from '@material-ui/core/Collapse';
+import HelpIcon from '@material-ui/icons/Help';
 
 const drawerWidth = 200;
 
@@ -89,6 +92,10 @@ const LeftDrawerComponent = () => {
     setOpen(false);
   };
 
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -116,7 +123,13 @@ const LeftDrawerComponent = () => {
           <Typography variant="h4" component="h1">
             ODAP
           </Typography>
-          <Box style={{ width: "6%" }}></Box>
+          <IconButton 
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerClose}
+            edge='end'>
+            <HelpIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -129,13 +142,35 @@ const LeftDrawerComponent = () => {
                       !bigScreen && classes.drawerPaperSmall),
         }}
       >
-
         <MuiThemeProvider theme={THEME}>
           <Typography variant="h4" align="center" color="textSecondary">
             Fields
           </Typography>
           <Divider />
           <List>
+            <ListItem
+              button
+              onClick={handleClick}>
+              <ListItemIcon>
+                <PlayArrowIcon />
+              </ListItemIcon>
+              <ListItemText primary="In progress" />
+              
+            </ListItem>
+            <ListItem
+              button>
+              <ListItemIcon>
+                <PlayArrowIcon />
+              </ListItemIcon>
+              <ListItemText primary="Not Started" />
+            </ListItem>
+            <ListItem
+              button>
+              <ListItemIcon>
+                <PlayArrowIcon />
+              </ListItemIcon>
+              <ListItemText primary="Done" />
+            </ListItem>
             {state.fields.map((text, index) => (
               <ListItem
                 button
