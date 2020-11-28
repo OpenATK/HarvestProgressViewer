@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/HarvestProgressViewer/static/css/main.57e08a3f.chunk.css",
+    "main.js": "/HarvestProgressViewer/static/js/main.2d2b66a9.chunk.js",
+    "main.js.map": "/HarvestProgressViewer/static/js/main.2d2b66a9.chunk.js.map",
+    "runtime-main.js": "/HarvestProgressViewer/static/js/runtime-main.9c1c0ada.js",
+    "runtime-main.js.map": "/HarvestProgressViewer/static/js/runtime-main.9c1c0ada.js.map",
+    "static/css/2.b4ebbe46.chunk.css": "/HarvestProgressViewer/static/css/2.b4ebbe46.chunk.css",
+    "static/js/2.4850a081.chunk.js": "/HarvestProgressViewer/static/js/2.4850a081.chunk.js",
+    "static/js/2.4850a081.chunk.js.map": "/HarvestProgressViewer/static/js/2.4850a081.chunk.js.map",
+    "static/js/3.18ce8771.chunk.js": "/HarvestProgressViewer/static/js/3.18ce8771.chunk.js",
+    "static/js/3.18ce8771.chunk.js.map": "/HarvestProgressViewer/static/js/3.18ce8771.chunk.js.map",
+    "index.html": "/HarvestProgressViewer/index.html",
+    "static/css/2.b4ebbe46.chunk.css.map": "/HarvestProgressViewer/static/css/2.b4ebbe46.chunk.css.map",
+    "static/css/main.57e08a3f.chunk.css.map": "/HarvestProgressViewer/static/css/main.57e08a3f.chunk.css.map",
+    "static/js/2.4850a081.chunk.js.LICENSE.txt": "/HarvestProgressViewer/static/js/2.4850a081.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9c1c0ada.js",
+    "static/css/2.b4ebbe46.chunk.css",
+    "static/js/2.4850a081.chunk.js",
+    "static/css/main.57e08a3f.chunk.css",
+    "static/js/main.2d2b66a9.chunk.js"
+  ]
+}
