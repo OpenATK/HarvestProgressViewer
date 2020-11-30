@@ -22,20 +22,32 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import Box from "@material-ui/core/Box";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Collapse from '@material-ui/core/Collapse';
 import HelpIcon from '@material-ui/icons/Help';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const drawerWidth = 200;
 
-const THEME = createMuiTheme({
+const darkTheme = createMuiTheme({
   palette: {
     type: "dark",
   },
 });
+
+const lightTheme = createMuiTheme({
+  palette: {
+    type: "light",
+  },
+});
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -74,6 +86,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       alignItems: "center",
     },
+    nested: {
+      paddingLeft: theme.spacing(4),
+    },
   })
 );
 
@@ -81,6 +96,10 @@ const LeftDrawerComponent = () => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [inProgressMenuOpen, setInProgressMenuOpen] = React.useState(false);
+  const [notStartedMenuOpen, setNotStartedMenuOpen] = React.useState(false);
+  const [doneMenuOpen, setDoneMenuOpen] = React.useState(false);
+  const [infoOpen, setInfoOpen] = React.useState(false);
   const { state, actions } = useOvermind();
   const bigScreen = useMediaQuery('(min-width:600px)');
 
@@ -92,8 +111,24 @@ const LeftDrawerComponent = () => {
     setOpen(false);
   };
 
-  const handleClick = () => {
-    setOpen(!open);
+  const inProgressHandleClick = () => {
+    setInProgressMenuOpen(!inProgressMenuOpen);
+  };
+
+  const notStartedHandleClick = () => {
+    setNotStartedMenuOpen(!notStartedMenuOpen);
+  };
+
+  const doneHandleClick = () => {
+    setDoneMenuOpen(!doneMenuOpen);
+  };
+
+  const infoHandleClickOpen = () => {
+    setInfoOpen(true);
+  };
+
+  const infoHandleClose = () => {
+    setInfoOpen(false);
   };
 
   return (
@@ -116,8 +151,7 @@ const LeftDrawerComponent = () => {
             onClick={handleDrawerClose}
             edge='start'
             className={clsx(classes.menuButton, 
-                            !open && classes.hide)}
-            >
+                            !open && classes.hide)}>
             <ChevronLeftIcon />
           </IconButton>
           <Typography variant="h4" component="h1">
@@ -126,12 +160,56 @@ const LeftDrawerComponent = () => {
           <IconButton 
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerClose}
+            onClick={infoHandleClickOpen}
             edge='end'>
             <HelpIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
+      <div>
+      <MuiThemeProvider theme={lightTheme}>
+        <Dialog
+          fullScreen={!bigScreen}
+          open={infoOpen}
+          onClose={infoHandleClose}
+          aria-labelledby="help"
+          color="inherit"
+        >
+          <DialogTitle id="help">
+            {"The OATS Data Automation Platform"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To view a list of the available field records, please click on the menu 
+              icon on the top left corner of the screen. Fields will be sorted by their
+              completion status. To view the progress of a specific field, please select 
+              the field on the fields list. Once selected, the current progress will 
+              appear on the bottom bar. To view more details of a field progress, please 
+              click on the arrow on the bottom bar.  
+            </DialogContentText>
+            <DialogContentText>
+              ODAP is a web-based platform with plug-and-play tools for data automation, 
+              covering data collection, transmission, analysis, and visualization. 
+              It is a coordinated attempt of developing, utilizing, and improving
+              open-source hardware and software to conquer the data automation problem 
+              in digital agriculture.
+            </DialogContentText>
+            <DialogContentText>
+              ODAP is a creation of the Open Agriculture Technologies and Systems 
+              Center at Purdue University. 
+            </DialogContentText>
+            <DialogContentText>
+              2020 - Ver. 0.1.0.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button autoFocus onClick={infoHandleClose}>
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
+        </MuiThemeProvider>
+      </div>
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -142,7 +220,7 @@ const LeftDrawerComponent = () => {
                       !bigScreen && classes.drawerPaperSmall),
         }}
       >
-        <MuiThemeProvider theme={THEME}>
+        <MuiThemeProvider theme={darkTheme}>
           <Typography variant="h4" align="center" color="textSecondary">
             Fields
           </Typography>
@@ -150,32 +228,20 @@ const LeftDrawerComponent = () => {
           <List>
             <ListItem
               button
-              onClick={handleClick}>
+              onClick={inProgressHandleClick}>
               <ListItemIcon>
                 <PlayArrowIcon />
               </ListItemIcon>
               <ListItemText primary="In progress" />
-              
             </ListItem>
-            <ListItem
-              button>
-              <ListItemIcon>
-                <PlayArrowIcon />
-              </ListItemIcon>
-              <ListItemText primary="Not Started" />
-            </ListItem>
-            <ListItem
-              button>
-              <ListItemIcon>
-                <PlayArrowIcon />
-              </ListItemIcon>
-              <ListItemText primary="Done" />
-            </ListItem>
-            {state.fields.map((text, index) => (
+            <Collapse in={inProgressMenuOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+              {state.fields.map((text, index) => (
               <ListItem
                 button
                 key={text}
                 onClick={() => actions.selectField(index)}
+                className={classes.nested}
               >
                 <ListItemIcon>
                   <DashboardIcon />
@@ -183,6 +249,48 @@ const LeftDrawerComponent = () => {
                 <ListItemText primary={text} color="textSecondary" />
               </ListItem>
             ))}
+              </List>
+            </Collapse>
+            <ListItem
+              button
+              onClick={notStartedHandleClick}>
+              <ListItemIcon>
+                <PlayArrowIcon />
+              </ListItemIcon>
+              <ListItemText primary="Not Started" />
+            </ListItem>
+            <Collapse in={notStartedMenuOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <DashboardIcon />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Field A
+                  </ListItemText>
+                </ListItem>
+              </List>
+            </Collapse>
+            <ListItem
+              button
+              onClick={doneHandleClick}>
+              <ListItemIcon>
+                <PlayArrowIcon />
+              </ListItemIcon>
+              <ListItemText primary="Done" />
+            </ListItem>
+            <Collapse in={doneMenuOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <DashboardIcon />
+                  </ListItemIcon>
+                  <ListItemText>
+                    Field B
+                  </ListItemText>
+                </ListItem>
+              </List>
+            </Collapse>
           </List>
         </MuiThemeProvider>
         <Divider />
