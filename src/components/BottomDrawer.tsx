@@ -181,23 +181,23 @@ const BottomDrawerComponent = () => {
           {state.selectedField !== null? state.fields[state.selectedField] : "(Field not selected)"}
         </Typography>
         <Typography
-          color="textSecondary">
-          Harvest Progress
+            color="textSecondary">
+            Harvest Progress
         </Typography>
         <div className={classes.progressBar}>
-          <LinearProgressWithLabel value={progress} />
+            <LinearProgressWithLabel value={state.progress.percentage} />
         </div>
         <Typography
-          color="textSecondary">
-          Harvest Time: xxx hr
+            color="textSecondary">
+            Harvested Area: {state.progress.acre} ac
         </Typography>
         <Typography
-          color="textSecondary">
-          Total Area: xxx ac
+            color="textSecondary">
+            Number of Fields Being Harvested: {state.statistics.numOfFieldsBeingHarvested}
         </Typography>
         <Typography
-          color="textSecondary">
-          Harvested Area: xxx ac
+            color="textSecondary">
+            Number of Fields Harvested: {state.statistics.numOfFieldsHarvested}
         </Typography>
         </MuiThemeProvider>
       </Drawer>

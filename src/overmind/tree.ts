@@ -24,6 +24,10 @@ export const tree = {
           },
         },
       },
+      statistics: {
+        _type: "application/json",
+        _rev: 0,
+      },
     },
   },
 };
