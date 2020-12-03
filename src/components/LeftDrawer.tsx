@@ -33,6 +33,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import logo from "./odap-logo.png";
 
 const drawerWidth = 200;
 
@@ -59,6 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       justifyContent: "space-between",
       zIndex: 2,
+      background: '#1082B8'
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -72,13 +74,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaperBig: {
       width: drawerWidth,
-      background: '#3f51b5',
+      background: '#1082B8',
       zIndex: 2,
       top: 64,
     },
     drawerPaperSmall: {
       width: drawerWidth,
-      background: '#3f51b5',
+      background: '#1082B8',
       zIndex: 2,
       top: 56,
     },
@@ -89,13 +91,17 @@ const useStyles = makeStyles((theme: Theme) =>
     nested: {
       paddingLeft: theme.spacing(4),
     },
+    logo: {
+      height: '48px',
+      width: '167px',
+    },
   })
 );
 
 const LeftDrawerComponent = () => {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const [inProgressMenuOpen, setInProgressMenuOpen] = React.useState(false);
   const [notStartedMenuOpen, setNotStartedMenuOpen] = React.useState(false);
   const [doneMenuOpen, setDoneMenuOpen] = React.useState(false);
@@ -154,9 +160,10 @@ const LeftDrawerComponent = () => {
                             !open && classes.hide)}>
             <ChevronLeftIcon />
           </IconButton>
-          <Typography variant="h4" component="h1">
-            ODAP
-          </Typography>
+          <div>
+            <img src={logo} alt="This is our logo" 
+            className={classes.logo}/>
+          </div>
           <IconButton 
             color="inherit"
             aria-label="open drawer"
@@ -188,18 +195,18 @@ const LeftDrawerComponent = () => {
               click on the arrow on the bottom bar.  
             </DialogContentText>
             <DialogContentText>
-              ODAP is a web-based platform with plug-and-play tools for data automation, 
-              covering data collection, transmission, analysis, and visualization. 
-              It is a coordinated attempt of developing, utilizing, and improving
-              open-source hardware and software to conquer the data automation problem 
-              in digital agriculture.
+              ODAP is a web-based platform for data automation, covering data collection, 
+              transmission, analysis, and visualization. It is a coordinated attempt of 
+              developing, utilizing, and improving open-source hardware and software to 
+              conquer the data automation problem in digital agriculture.
             </DialogContentText>
             <DialogContentText>
-              ODAP is a creation of the Open Agriculture Technologies and Systems 
-              Center at Purdue University. 
+              ODAP is a creation of Team OATS for the Producer-Led Innovation Challenge 
+              hosted by AgriNovus.
+
             </DialogContentText>
             <DialogContentText>
-              2020 - Ver. 0.1.0.
+              2020 - Ver. 0.1.0 - Harvest Progress Viewer Demo
             </DialogContentText>
           </DialogContent>
           <DialogActions>
