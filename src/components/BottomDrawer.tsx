@@ -145,15 +145,6 @@ const BottomDrawerComponent = () => {
     setOpen(false);
   };
 
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
-    }, 800);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -208,7 +199,7 @@ const BottomDrawerComponent = () => {
           </Typography>
         </div>
         <div className={clsx(!showProgressBar && classes.hide, classes.progressBar)}>
-          <LinearProgressWithLabel value={progress} />
+          <LinearProgressWithLabel value={state.progress.percentage} />
         </div>
         <div className={clsx(!showProgressBar && classes.hide)}>
           <Typography
