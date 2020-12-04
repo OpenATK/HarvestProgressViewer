@@ -29,8 +29,9 @@ export const onInitialize: OnInitialize = async ({
   ];
   await actions.oada.get({ requests, connection_id: state.connection });
   state.loaded = true;
-  if (state.fields.length > 0) {
-    state.selectedField = 0;
+  const mostRecentFieldChange = state.mostRecentFieldChange;
+  if (state.fields.length > 0 && mostRecentFieldChange) {
+    state.selectedField = mostRecentFieldChange;
     state.mapCenter.lat = state.field[0][0][0];
     state.mapCenter.lon = state.field[0][0][1];
   }

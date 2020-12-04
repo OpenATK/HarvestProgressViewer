@@ -23,16 +23,16 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import Collapse from '@material-ui/core/Collapse';
-import HelpIcon from '@material-ui/icons/Help';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import Collapse from "@material-ui/core/Collapse";
+import HelpIcon from "@material-ui/icons/Help";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import logo from "./odap-demo-logo.png";
 
 const drawerWidth = 200;
@@ -49,7 +49,6 @@ const lightTheme = createMuiTheme({
   },
 });
 
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -60,14 +59,14 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       justifyContent: "space-between",
       zIndex: 2,
-      background: '#1082B8'
+      background: "#1082B8",
     },
-    appTitleBig:{
+    appTitleBig: {
       margin: theme.spacing(1),
       fontWeight: 600,
       lineHeight: 1,
     },
-    appTitleSmall:{
+    appTitleSmall: {
       margin: theme.spacing(1),
       fontSize: 11,
       fontWeight: 600,
@@ -76,9 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
     menuButton: {
       marginRight: theme.spacing(2),
     },
-    helpButton:{
-      
-    },
+    helpButton: {},
     hide: {
       display: "none",
     },
@@ -88,13 +85,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaperBig: {
       width: drawerWidth,
-      background: '#1082B8',
+      background: "#1082B8",
       zIndex: 2,
       top: 64,
     },
     drawerPaperSmall: {
       width: drawerWidth,
-      background: '#1082B8',
+      background: "#1082B8",
       zIndex: 2,
       top: 56,
     },
@@ -106,10 +103,10 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(4),
     },
     logo: {
-      height: '48px',
-      width: '167px',
+      height: "48px",
+      width: "167px",
     },
-    dialogTitle:{
+    dialogTitle: {
       alignItems: "center",
     },
   })
@@ -124,7 +121,7 @@ const LeftDrawerComponent = () => {
   const [doneMenuOpen, setDoneMenuOpen] = React.useState(false);
   const [infoOpen, setInfoOpen] = React.useState(false);
   const { state, actions } = useOvermind();
-  const bigScreen = useMediaQuery('(min-width:600px)');
+  const bigScreen = useMediaQuery("(min-width:600px)");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -168,81 +165,88 @@ const LeftDrawerComponent = () => {
           >
             <MenuIcon />
           </IconButton>
-          <IconButton 
+          <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerClose}
-            edge='start'
-            className={clsx(classes.menuButton, 
-                            !open && classes.hide)}>
+            edge="start"
+            className={clsx(classes.menuButton, !open && classes.hide)}
+          >
             <ChevronLeftIcon />
           </IconButton>
           <div>
-            <img src={logo} alt="logo" 
-            className={classes.logo}/>
+            <img src={logo} alt="logo" className={classes.logo} />
           </div>
-          <Typography 
-            variant="h5" 
-            className={clsx(classes.appTitleBig, !bigScreen && classes.hide)}>
+          <Typography
+            variant="h5"
+            className={clsx(classes.appTitleBig, !bigScreen && classes.hide)}
+          >
             Harvest Progress Monitor
           </Typography>
-          <Typography 
-            variant="h6" 
-            className={clsx(classes.appTitleSmall, bigScreen && classes.hide)}>
-              <div>Harvest <br /> Progress <br /> Monitor</div>
+          <Typography
+            variant="h6"
+            className={clsx(classes.appTitleSmall, bigScreen && classes.hide)}
+          >
+            <div>
+              Harvest <br /> Progress <br /> Monitor
+            </div>
           </Typography>
-          <IconButton 
+          <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={infoHandleClickOpen}
-            edge='end'
-            className={classes.helpButton}>
+            edge="end"
+            className={classes.helpButton}
+          >
             <HelpIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
       <div>
-      <MuiThemeProvider theme={lightTheme}>
-        <Dialog
-          fullScreen={!bigScreen}
-          open={infoOpen}
-          onClose={infoHandleClose}
-          aria-labelledby="help"
-          color="inherit"
-        >
-          <DialogTitle id="help">
-            {"The OATS Data Automation Platform - Harvest Progress Monitor Demo"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              To view a list of the available field records, please click on the menu 
-              icon on the top left corner of the screen. Fields will be sorted by their
-              progress status. To view the progress of a specific field, please select 
-              the field on the fields list. Once selected, the current progress will 
-              appear on the bottom bar. To view more details of a field progress, please 
-              click on the arrow on the bottom bar.  
-            </DialogContentText>
-            <DialogContentText>
-              ODAP is a web-based platform for data automation, covering data collection, 
-              transmission, analysis, and visualization. It is a coordinated attempt of 
-              developing, utilizing, and improving open-source hardware and software to 
-              conquer the data automation problem in digital agriculture.
-            </DialogContentText>
-            <DialogContentText>
-              ODAP is a creation of Team OATS for the Producer-Led Innovation Challenge 
-              hosted by AgriNovus.
-
-            </DialogContentText>
-            <DialogContentText>
-              2020 - Ver. 0.1.0 - Harvest Progress Monitor Demo
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button autoFocus onClick={infoHandleClose}>
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <MuiThemeProvider theme={lightTheme}>
+          <Dialog
+            fullScreen={!bigScreen}
+            open={infoOpen}
+            onClose={infoHandleClose}
+            aria-labelledby="help"
+            color="inherit"
+          >
+            <DialogTitle id="help">
+              {
+                "The OATS Data Automation Platform - Harvest Progress Monitor Demo"
+              }
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                To view a list of the available field records, please click on
+                the menu icon on the top left corner of the screen. Fields will
+                be sorted by their progress status. To view the progress of a
+                specific field, please select the field on the fields list. Once
+                selected, the current progress will appear on the bottom bar. To
+                view more details of a field progress, please click on the arrow
+                on the bottom bar.
+              </DialogContentText>
+              <DialogContentText>
+                ODAP is a web-based platform for data automation, covering data
+                collection, transmission, analysis, and visualization. It is a
+                coordinated attempt of developing, utilizing, and improving
+                open-source hardware and software to conquer the data automation
+                problem in digital agriculture.
+              </DialogContentText>
+              <DialogContentText>
+                ODAP is a creation of Team OATS for the Producer-Led Innovation
+                Challenge hosted by AgriNovus.
+              </DialogContentText>
+              <DialogContentText>
+                2020 - Ver. 0.1.0 - Harvest Progress Monitor Demo
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button autoFocus onClick={infoHandleClose}>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
         </MuiThemeProvider>
       </div>
       <Drawer
@@ -251,8 +255,10 @@ const LeftDrawerComponent = () => {
         anchor="left"
         open={open}
         classes={{
-          paper: clsx(bigScreen && classes.drawerPaperBig, 
-                      !bigScreen && classes.drawerPaperSmall),
+          paper: clsx(
+            bigScreen && classes.drawerPaperBig,
+            !bigScreen && classes.drawerPaperSmall
+          ),
         }}
       >
         <MuiThemeProvider theme={darkTheme}>
@@ -261,9 +267,7 @@ const LeftDrawerComponent = () => {
           </Typography>
           <Divider />
           <List>
-            <ListItem
-              button
-              onClick={inProgressHandleClick}>
+            <ListItem button onClick={inProgressHandleClick}>
               <ListItemIcon>
                 <PlayArrowIcon />
               </ListItemIcon>
@@ -271,24 +275,28 @@ const LeftDrawerComponent = () => {
             </ListItem>
             <Collapse in={inProgressMenuOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-              {state.fields.map((text, index) => (
-              <ListItem
-                button
-                key={text}
-                onClick={() => actions.selectField(index)}
-                className={classes.nested}
-              >
-                <ListItemIcon>
-                  <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText primary={text} color="textSecondary" />
-              </ListItem>
-            ))}
+                {state.fieldsDetail.map((obj, index) => {
+                  if (obj.percentage > 0 && obj.percentage <= 0.99)
+                    return (
+                      <ListItem
+                        button
+                        key={obj.name}
+                        onClick={() => actions.selectField(index)}
+                        className={classes.nested}
+                      >
+                        <ListItemIcon>
+                          <DashboardIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={obj.name}
+                          color="textSecondary"
+                        />
+                      </ListItem>
+                    );
+                })}
               </List>
             </Collapse>
-            <ListItem
-              button
-              onClick={notStartedHandleClick}>
+            <ListItem button onClick={notStartedHandleClick}>
               <ListItemIcon>
                 <PlayArrowIcon />
               </ListItemIcon>
@@ -296,19 +304,28 @@ const LeftDrawerComponent = () => {
             </ListItem>
             <Collapse in={notStartedMenuOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <DashboardIcon />
-                  </ListItemIcon>
-                  <ListItemText>
-                    Field A
-                  </ListItemText>
-                </ListItem>
+                {state.fieldsDetail.map((obj, index) => {
+                  if (obj.percentage == 0)
+                    return (
+                      <ListItem
+                        button
+                        key={obj.name}
+                        onClick={() => actions.selectField(index)}
+                        className={classes.nested}
+                      >
+                        <ListItemIcon>
+                          <DashboardIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={obj.name}
+                          color="textSecondary"
+                        />
+                      </ListItem>
+                    );
+                })}
               </List>
             </Collapse>
-            <ListItem
-              button
-              onClick={doneHandleClick}>
+            <ListItem button onClick={doneHandleClick}>
               <ListItemIcon>
                 <PlayArrowIcon />
               </ListItemIcon>
@@ -316,14 +333,25 @@ const LeftDrawerComponent = () => {
             </ListItem>
             <Collapse in={doneMenuOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <DashboardIcon />
-                  </ListItemIcon>
-                  <ListItemText>
-                    Field B
-                  </ListItemText>
-                </ListItem>
+                {state.fieldsDetail.map((obj, index) => {
+                  if (obj.percentage > 0.99)
+                    return (
+                      <ListItem
+                        button
+                        key={obj.name}
+                        onClick={() => actions.selectField(index)}
+                        className={classes.nested}
+                      >
+                        <ListItemIcon>
+                          <DashboardIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={obj.name}
+                          color="textSecondary"
+                        />
+                      </ListItem>
+                    );
+                })}
               </List>
             </Collapse>
           </List>

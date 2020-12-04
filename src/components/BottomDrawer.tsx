@@ -238,7 +238,15 @@ const BottomDrawerComponent = () => {
               {state.statistics.numOfFieldsHarvested}
             </Typography>
             <Typography color="textSecondary">
-              Overall Progress: {Math.round(state.statistics.progress * 100)}
+              Total Area: {state.statistics.totalAreaInAcre} ac
+            </Typography>
+            <Typography color="textSecondary">
+              Total Harvested Area: {state.statistics.totalHarvestedAreaInAcre}{" "}
+              ac
+            </Typography>
+            <Typography color="textSecondary">
+              Overall Progress For This Season:{" "}
+              {Math.round(state.statistics.progress * 100)} %
             </Typography>
           </div>
         </Drawer>

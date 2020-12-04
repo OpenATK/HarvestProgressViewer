@@ -10,6 +10,7 @@ export type State = {
   field: Array<any>;
   progressPolygon: Array<any>;
   fields: Array<string>;
+  fieldsDetail: Array<any>;
   selectedField: null | number;
   progress: { acre: number; percentage: number };
   statistics: {
@@ -19,6 +20,7 @@ export type State = {
     totalAreaInAcre: number;
     progress: number;
   };
+  mostRecentFieldChange: number | null;
 };
 
 // Initialize State
@@ -28,6 +30,37 @@ export const state: State = {
   loaded: false,
   selectedField: null,
   mapCenter: { lat: 40.77884287, lon: -102.084164, zoom: 14 },
+  get mostRecentFieldChange() {
+    if (this.connection && this.loaded) {
+      const fields = this.fields;
+      const idx = fields.indexOf(
+        this.oada[this.connection].bookmarks.agrinovus.mostRecentFieldChange
+      );
+      if (idx >= 0) {
+        return idx;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  },
+  get fieldsDetail() {
+    if (this.connection && this.loaded) {
+      // Connected
+      const findex = this.oada[this.connection].bookmarks.agrinovus[
+        "field-index"
+      ];
+      var data: Array<object> = [];
+      for (let key in findex) {
+        const percentage: number = findex[key]?.progress?.progress || 0;
+        data.push({ name: key, percentage });
+      }
+      return data;
+    } else {
+      return [];
+    }
+  },
   get fields() {
     if (this.connection && this.loaded) {
       // Connected
