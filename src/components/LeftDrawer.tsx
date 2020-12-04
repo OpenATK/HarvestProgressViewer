@@ -33,7 +33,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import logo from "./odap-logo.png";
+import logo from "./odap-demo-logo.png";
 
 const drawerWidth = 200;
 
@@ -62,8 +62,22 @@ const useStyles = makeStyles((theme: Theme) =>
       zIndex: 2,
       background: '#1082B8'
     },
+    appTitleBig:{
+      margin: theme.spacing(1),
+      fontWeight: 600,
+      lineHeight: 1,
+    },
+    appTitleSmall:{
+      margin: theme.spacing(1),
+      fontSize: 11,
+      fontWeight: 600,
+      lineHeight: 1,
+    },
     menuButton: {
       marginRight: theme.spacing(2),
+    },
+    helpButton:{
+      
     },
     hide: {
       display: "none",
@@ -94,6 +108,9 @@ const useStyles = makeStyles((theme: Theme) =>
     logo: {
       height: '48px',
       width: '167px',
+    },
+    dialogTitle:{
+      alignItems: "center",
     },
   })
 );
@@ -161,14 +178,25 @@ const LeftDrawerComponent = () => {
             <ChevronLeftIcon />
           </IconButton>
           <div>
-            <img src={logo} alt="This is our logo" 
+            <img src={logo} alt="logo" 
             className={classes.logo}/>
           </div>
+          <Typography 
+            variant="h5" 
+            className={clsx(classes.appTitleBig, !bigScreen && classes.hide)}>
+            Harvest Progress Monitor
+          </Typography>
+          <Typography 
+            variant="h6" 
+            className={clsx(classes.appTitleSmall, bigScreen && classes.hide)}>
+              <div>Harvest <br /> Progress <br /> Monitor</div>
+          </Typography>
           <IconButton 
             color="inherit"
             aria-label="open drawer"
             onClick={infoHandleClickOpen}
-            edge='end'>
+            edge='end'
+            className={classes.helpButton}>
             <HelpIcon />
           </IconButton>
         </Toolbar>
@@ -183,13 +211,13 @@ const LeftDrawerComponent = () => {
           color="inherit"
         >
           <DialogTitle id="help">
-            {"The OATS Data Automation Platform"}
+            {"The OATS Data Automation Platform - Harvest Progress Monitor Demo"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
               To view a list of the available field records, please click on the menu 
               icon on the top left corner of the screen. Fields will be sorted by their
-              completion status. To view the progress of a specific field, please select 
+              progress status. To view the progress of a specific field, please select 
               the field on the fields list. Once selected, the current progress will 
               appear on the bottom bar. To view more details of a field progress, please 
               click on the arrow on the bottom bar.  
@@ -206,7 +234,7 @@ const LeftDrawerComponent = () => {
 
             </DialogContentText>
             <DialogContentText>
-              2020 - Ver. 0.1.0 - Harvest Progress Viewer Demo
+              2020 - Ver. 0.1.0 - Harvest Progress Monitor Demo
             </DialogContentText>
           </DialogContent>
           <DialogActions>
