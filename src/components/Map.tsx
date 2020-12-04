@@ -30,31 +30,8 @@ function ChangeView({ center }) {
   return null;
 }
 
-function selectColor(){
-
-  var color = "yellow";
-  var x = Math.floor((Math.random() * 5) + 1);
-  if (x == 1){
-    color = "magenta";
-  }
-
-  if (x == 2){
-    color = "yellow";
-  }
-
-  if (x == 3){
-    color = "cyan";
-  }
-
-  if (x == 4){
-    color = "white";
-  }
-
-  if (x == 5){
-    color = "purple";
-  }
-
-  return color;
+function getColors(){
+  return ["yellow", "magenta", "cyan", "white", "purple"];
 }
 
 const MapComponent = () => {
@@ -62,7 +39,9 @@ const MapComponent = () => {
   const position: L.LatLngTuple = [state.mapCenter.lat, state.mapCenter.lon];
     const fieldPolygon: [number, number][] = state.field;
     const progressPolygon: [number, number][] = state.progressPolygon;
-    const polygonColor = selectColor();
+    const availableColors = getColors();
+    const polygonColor = availableColors[(state.selectedField !== null ? state.selectedField : 1) % availableColors.length];
+
     return (
         <MapContainer center={position} zoom={14}>
             <ChangeView center={position} />

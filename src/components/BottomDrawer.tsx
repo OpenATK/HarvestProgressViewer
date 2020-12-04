@@ -123,7 +123,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     progressBar: {
       width: "75%",
-      padding: theme.spacing(2, 0, 4),
+      padding: theme.spacing(2, 0, 2),
     },
   })
 );
