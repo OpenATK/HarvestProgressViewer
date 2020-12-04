@@ -8,7 +8,7 @@ import App from "./components/App";
 import reportWebVitals from "./reportWebVitals";
 
 export const overmind = createOvermind(config, {
-//  devtools: false,
+  devtools: process.env.NODE_ENV !== "production",
 });
 
 ReactDOM.render(

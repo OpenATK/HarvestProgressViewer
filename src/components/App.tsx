@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from "react";
-import clsx from 'clsx';
+import clsx from "clsx";
 import { useOvermind } from "../overmind";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import MapComponent from "./Map";
 import LeftDrawerComponent from "./LeftDrawer";
-import BottomDrawerComponent from "./BottomDrawer"
+import BottomDrawerComponent from "./BottomDrawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Modal from "@material-ui/core/Modal";
 
 const drawerWidth = 200;
 
@@ -34,6 +35,13 @@ const App = () => {
         <MapComponent />
       </main>
       <BottomDrawerComponent />
+      <Modal
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        open={!state.loaded}
+      >
+        <div />
+      </Modal>
     </div>
   );
 };
