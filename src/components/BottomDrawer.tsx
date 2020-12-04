@@ -129,6 +129,10 @@ function showProgress(state){
   }
 }
 
+function truncate (num, places) {
+  return Math.trunc(num * Math.pow(10, places)) / Math.pow(10, places);
+}
+
 const BottomDrawerComponent = () => {
   const classes = useStyles();
   const theme = useTheme();
@@ -167,7 +171,7 @@ const BottomDrawerComponent = () => {
         </Toolbar>
         <div className={clsx(!showProgressBar && classes.hide, classes.progressBar)}>
           <LinearProgressWithLabel 
-            value={progress} />
+            value={state.progress.percentage} />
         </div>
       </AppBar>
       <Drawer
@@ -204,15 +208,15 @@ const BottomDrawerComponent = () => {
         <div className={clsx(!showProgressBar && classes.hide)}>
           <Typography
             color="textSecondary">
-            Harvest Time: xxx hr
+            Harvested Area: {truncate(state.progress.acre, 2)} ac
           </Typography>
           <Typography
             color="textSecondary">
-            Total Area: xxx ac
+            Number of Fields Being Harvested: {state.statistics.numOfFieldsBeingHarvested}
           </Typography>
           <Typography
             color="textSecondary">
-            Harvested Area: xxx ac
+            Number of Fields Harvested: {state.statistics.numOfFieldsHarvested}
           </Typography>
         </div>
         </Drawer>
