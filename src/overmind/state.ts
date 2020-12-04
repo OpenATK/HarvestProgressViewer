@@ -41,9 +41,11 @@ export const state: State = {
   get field() {
     if (this.connection && this.loaded && this.selectedField !== null) {
       const selectedFieldName = this.fields[this.selectedField];
-      return this.oada[this.connection].bookmarks.agrinovus["field-index"][
-        selectedFieldName
-      ].field.polygon;
+      return (
+        this.oada[this.connection].bookmarks.agrinovus["field-index"][
+          selectedFieldName
+        ]?.field?.polygon || []
+      );
     } else {
       return [];
     }
@@ -51,9 +53,11 @@ export const state: State = {
   get progressPolygon() {
     if (this.connection && this.loaded && this.selectedField !== null) {
       const selectedFieldName = this.fields[this.selectedField];
-      return this.oada[this.connection].bookmarks.agrinovus["field-index"][
-        selectedFieldName
-      ].progress.polygon;
+      return (
+        this.oada[this.connection].bookmarks.agrinovus["field-index"][
+          selectedFieldName
+        ]?.progress?.polygon || []
+      );
     } else {
       return [];
     }
@@ -64,18 +68,22 @@ export const state: State = {
       return {
         acre: this.oada[this.connection].bookmarks.agrinovus["field-index"][
           selectedFieldName
-        ].progress.areaInAcre,
+        ]?.progress?.areaInAcre,
         percentage:
           this.oada[this.connection].bookmarks.agrinovus["field-index"][
             selectedFieldName
-          ].progress.progress * 100,
+          ]?.progress?.progress * 100,
       };
     } else {
       return { acre: 0, percentage: 0 };
     }
   },
   get statistics() {
-    if (this.connection && this.loaded) {
+    if (
+      this.connection &&
+      this.loaded &&
+      this.oada[this.connection].bookmarks.agrinovus.statistics
+    ) {
       return this.oada[this.connection].bookmarks.agrinovus.statistics;
     } else {
       return {

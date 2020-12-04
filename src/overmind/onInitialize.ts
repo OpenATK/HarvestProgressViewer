@@ -29,5 +29,9 @@ export const onInitialize: OnInitialize = async ({
   ];
   await actions.oada.get({ requests, connection_id: state.connection });
   state.loaded = true;
-  //console.log(state.oada.localhost.bookmarks.agrinovus["field-index"].Field1);
+  if (state.fields.length > 0) {
+    state.selectedField = 0;
+    state.mapCenter.lat = state.field[0][0][0];
+    state.mapCenter.lon = state.field[0][0][1];
+  }
 };
