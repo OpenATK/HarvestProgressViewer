@@ -21,6 +21,7 @@ export type State = {
     progress: number;
   };
   mostRecentFieldChange: number | null;
+  moveDone: boolean;
 };
 
 // Initialize State
@@ -30,6 +31,7 @@ export const state: State = {
   loaded: false,
   selectedField: null,
   mapCenter: { lat: 40.77884287, lon: -102.084164, zoom: 14 },
+  moveDone: true,
   get mostRecentFieldChange() {
     if (this.connection && this.loaded) {
       const fields = this.fields;

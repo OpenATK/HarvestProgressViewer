@@ -24,36 +24,47 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-function ChangeView({ center }) {
+function ChangeView() {
+  const { state, actions } = useOvermind();
+  const position: L.LatLngTuple = [state.mapCenter.lat, state.mapCenter.lon];
   const map = useMap();
-  map.setView(center, 14);
+  if (!state.moveDone) {
+    map.panTo(position);
+    actions.moveDone();
+  }
   return null;
 }
 
-function getColors(){
+function getColors() {
   return ["yellow", "magenta", "cyan", "white", "purple"];
 }
 
 const MapComponent = () => {
   const { state } = useOvermind();
   const position: L.LatLngTuple = [state.mapCenter.lat, state.mapCenter.lon];
-    const fieldPolygon: [number, number][] = state.field;
-    const progressPolygon: [number, number][] = state.progressPolygon;
-    const availableColors = getColors();
-    const polygonColor = availableColors[(state.selectedField !== null ? state.selectedField : 1) % availableColors.length];
+  const fieldPolygon: [number, number][] = state.field;
+  const progressPolygon: [number, number][] = state.progressPolygon;
+  const availableColors = getColors();
+  const polygonColor =
+    availableColors[
+      (state.selectedField !== null ? state.selectedField : 1) %
+        availableColors.length
+    ];
 
-    return (
-        <MapContainer center={position} zoom={14}>
-            <ChangeView center={position} />
-            <TileLayer
-                attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
-                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-            />
-            <Polygon pathOptions={{ color: polygonColor }} positions={fieldPolygon} />
-            <Polygon pathOptions={{ color: polygonColor, fillOpacity: 1 }} positions={progressPolygon} />
-
-        </MapContainer>
-    );
+  return (
+    <MapContainer center={position} zoom={14}>
+      <ChangeView />
+      <TileLayer
+        attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+      />
+      <Polygon pathOptions={{ color: polygonColor }} positions={fieldPolygon} />
+      <Polygon
+        pathOptions={{ color: polygonColor, fillOpacity: 1 }}
+        positions={progressPolygon}
+      />
+    </MapContainer>
+  );
 };
 
 export default MapComponent;

@@ -34,5 +34,6 @@ export const onInitialize: OnInitialize = async ({
     state.selectedField = mostRecentFieldChange;
     state.mapCenter.lat = state.field[0][0][0];
     state.mapCenter.lon = state.field[0][0][1];
+    state.moveDone = false;
   }
 };
