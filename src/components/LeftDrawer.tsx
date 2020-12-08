@@ -88,12 +88,14 @@ const useStyles = makeStyles((theme: Theme) =>
       background: "#1082B8",
       zIndex: 2,
       top: 64,
+      paddingBottom: 200,
     },
     drawerPaperSmall: {
       width: drawerWidth,
       background: "#1082B8",
       zIndex: 2,
       top: 56,
+      paddingBottom: 180,
     },
     drawerHeader: {
       display: "flex",
